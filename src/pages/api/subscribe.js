@@ -1,4 +1,4 @@
-// export const prerender = false; // 👈 This is critical!
+ export const prerender = false; // 👈 This is critical!
 
 import SibApiV3Sdk from 'sib-api-v3-sdk';
 const { ContactsApi, ApiClient } = SibApiV3Sdk;

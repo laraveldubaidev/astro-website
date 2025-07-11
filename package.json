@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^8.2.1",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.11.0",
     "sib-api-v3-sdk": "^8.5.0",
