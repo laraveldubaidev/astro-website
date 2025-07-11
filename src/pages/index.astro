@@ -438,78 +438,6 @@ import '../styles/global.css'
           </button>
         </form>
 
-        <script>
-          document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('newsletter-form') as HTMLFormElement;
-            if (!form) return;
-            
-            form.addEventListener('submit', async function(e) {
-              e.preventDefault();
-              
-              const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
-              const formStatus = document.getElementById('form-status') as HTMLDivElement;
-              const successMessage = document.getElementById('success-message') as HTMLDivElement;
-              const errorMessage = document.getElementById('error-message') as HTMLDivElement;
-              
-              if (!submitButton || !formStatus || !successMessage || !errorMessage) return;
-              
-              // Get form input values
-              const nameInput = document.getElementById('name') as HTMLInputElement;
-              const emailInput = document.getElementById('email') as HTMLInputElement;
-              
-              if (!emailInput || !emailInput.value) {
-                formStatus.classList.remove('hidden');
-                errorMessage.classList.remove('hidden');
-                successMessage.classList.add('hidden');
-                errorMessage.textContent = 'Email is required.';
-                return;
-              }
-              
-              // Set button to loading state
-              submitButton.disabled = true;
-              submitButton.textContent = 'Subscribing...';
-              
-              try {
-                // Create FormData from the form
-                const formData = new FormData(form);
-                
-                // Submit to the server-side API endpoint
-                const response = await fetch('/api/subscribe', {
-                  method: 'POST',
-                  body: formData
-                });
-                
-                // Parse the JSON response
-                const data = await response.json();
-                
-                // Show the form status section
-                formStatus.classList.remove('hidden');
-                
-                if (data.success) {
-                  // Success case
-                  successMessage.classList.remove('hidden');
-                  errorMessage.classList.add('hidden');
-                  successMessage.textContent = data.message || 'Thank you for subscribing!';
-                  form.reset();
-                } else {
-                  // Error case
-                  errorMessage.classList.remove('hidden');
-                  successMessage.classList.add('hidden');
-                  errorMessage.textContent = data.message || 'Something went wrong. Please try again.';
-                }
-              } catch (error) {
-                console.error('Subscription error:', error);
-                formStatus.classList.remove('hidden');
-                errorMessage.classList.remove('hidden');
-                successMessage.classList.add('hidden');
-                errorMessage.textContent = 'Network error. Please try again later.';
-              } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Subscribe';
-              }
-            });
-          });
-        </script>
       </div>
     </section>
 
@@ -583,7 +511,9 @@ import '../styles/global.css'
       to { opacity: 0.8; }
     }
   </style>
-  
+  <script src="/scripts/newsletter.js" defer></script>
+
+
   <script>
     // Animation handler for all sections
     document.addEventListener('DOMContentLoaded', () => {
